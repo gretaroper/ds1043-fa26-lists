@@ -1,6 +1,6 @@
 """lists
 
-Exercises for exploring lists
+Exercises for exploring lists Gretchen Roper DS1043
 """
 
 from pathlib import Path
@@ -8,14 +8,25 @@ from pathlib import Path
 
 def clamp(a: list[int], low: int = 0, high: int = 10) -> None:
     """Modify the values of a to be `low` when they fall below `low` or `high` when the fall above `high`"""
-    return
+    for i in range(len(a)):
+        if a[i] < low:
+            a[i] = low
+        elif a[i] > high:
+                a[i] = high
+        return None
 
 
 # Try writing your own reverse function by actually moving values around rather than
 # using reversed, list.reverse, a[::-1], etc
 def reverse(a: list) -> None:
     """Reverses the list a in place"""
-    return
+    left = 0
+    right = len(a) - 1
+    while left < right:
+        a[left], a[right] = a[right], a[left]
+        left = left + 1
+        right = right - 1
+    return None
 
 
 # Read the following function and write out your prediction of what it will do
@@ -32,6 +43,8 @@ def hop_in(name: str, pouch: list[str] = []) -> None:
         siblings = ''
     print(f"{name} hops into their mother's pouch{siblings}")
     pouch.append(name)
+# if you just put susan and no names there will be no list, so the list would be empty.
+
 
 
 # You can point this function a folder on your computer and it will list
@@ -56,5 +69,21 @@ def list_files(folder: str) -> list[str]:
 # index of the unmatched parenthesis)
 def match_parentheses(line: str) -> list[str]:
     """Given a string containing an expression, return a list of subexpressions delineated by parenthesis"""
-    return [line]
+    stack = []
+    subexpressions = []
+    index = 0
+    for character in line:
+        if character == '(':
+            stack.append(index)
+        elif character == ')':
+            if len(stack) == 0:
+                return ValueError
+            start_index = stack.pop()
+            content = line[start_index + 1 : index]
+            subexpressions.append(content)
+        indrx = index + 1
+    if len(stack) > 0:
+        last_open_index = stack.pop()
+        return ValueError
+    return subexpressions
 
